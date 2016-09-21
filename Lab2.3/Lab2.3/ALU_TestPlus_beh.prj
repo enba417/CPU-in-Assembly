@@ -1,0 +1,4 @@
+verilog work "../../Lab2/ALU.v"
+verilog work "ALU_Control.v"
+verilog work "ALU_TestPlus.v"
+verilog work "C:/Xilinx_ISE_14.7/14.7/ISE_DS/ISE//verilog/src/glbl.v"

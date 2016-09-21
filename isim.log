@@ -1,0 +1,56 @@
+ISim log file
+Running: C:\Users\012877915\Lab5\CPU_EU_Test_isim_beh.exe -gui -tclbatch isim.cmd -wdb C:/Users/012877915/Lab5/CPU_EU_Test_isim_beh.wdb 
+ISim M.63c (signature 0xb869381d)
+----------------------------------------------------------------------
+WARNING:Security:42 - Your software subscription period has lapsed. Your current version of Xilinx tools will continue to function, but you no longer qualify for Xilinx software updates or new releases.
+
+
+----------------------------------------------------------------------
+This is a Full version of ISim.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 55.  For instance uut/ALUCtlr/, width 4 of formal port ALU_Ctl is not equal to width 1 of actual signal aluctl.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 57.  For instance uut/ALUSrcMux/, width 32 of formal port IN0 is not equal to width 1 of actual signal Data2.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 58.  For instance uut/ALUSrcMux/, width 32 of formal port IN1 is not equal to width 1 of actual signal SE_Out.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 60.  For instance uut/ALUSrcMux/, width 32 of formal port Output is not equal to width 1 of actual signal B.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 62.  For instance uut/MemToRegMux/, width 32 of formal port IN0 is not equal to width 1 of actual signal aluout.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 63.  For instance uut/MemToRegMux/, width 32 of formal port IN1 is not equal to width 1 of actual signal Data_from_RAM.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 65.  For instance uut/MemToRegMux/, width 32 of formal port Output is not equal to width 1 of actual signal WriteData.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 67.  For instance uut/ALU/, width 32 of formal port A is not equal to width 1 of actual signal Data1.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 68.  For instance uut/ALU/, width 4 of formal port aluctl is not equal to width 1 of actual signal ALU_Ctl.
+WARNING: File "C:/Users/012877915/Desktop/CPU_EU.v" Line 69.  For instance uut/ALU/, width 32 of formal port B is not equal to width 1 of actual signal Output.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+Test case 1: nor $31, $0, $0
+expected result: $31 <- oxFFFFFFFF
+actual result: 	$31 = xxxxxxxx
+Test case 2: slt $1, $0, $31
+expected result: $1 <- 0x00000001
+actual result: 	$1 = xxxxxxxx
+Test case 3: OR $30, $0, $31
+expected result: $30 <- 0xFFFFFFFF
+actual result: 	$30 = xxxxxxxx
+Test case 4: and $2, $30, $1
+expected result: $2 <- 0x00000000
+actual result: 	$2 = xxxxxxxx
+Test case 5: sub $3, $30, $2
+expected result: $3 <- 0x0000001C
+actual result: 	$3 = xxxxxxxx
+Test case 6: add $4, $1, $2
+expected result: $4 <- 0x00000003
+actual result: 	$4 = xxxxxxxx
+Test case 7: lw $5, 4($0)
+expected restult Ram_Adress <- 4
+expected result: uut.ALU.Output == 4
+actual result: 	Ram_Adress = xxxxxxxx
+actual result: 	uut.ALU.Output = xxxxxxxx
+Test case 8: sw $3, 12($5)
+expected restult Ram_Adress <- 12341234
+expected result: Data_to_RAM <- 0xFFFFFFFE
+actual result: 	Ram_Adress = xxxxxxxx
+actual result: 	Data_to_RAM = zzzzzzzz
+Test case 9: beq $1, $2, 0x0003
+expected restult Zero <- 1
+actual result: 	Zero = x

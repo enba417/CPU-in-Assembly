@@ -1,0 +1,37 @@
+ISim log file
+Running: C:\Users\012877915\Desktop\Lab2.3\Lab2.3\ALU_TestPlus_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/012877915/Desktop/Lab2.3/Lab2.3/ALU_TestPlus_isim_beh.wdb 
+ISim P.20131013 (signature 0x8ef4fb42)
+----------------------------------------------------------------------
+WARNING:Security:42 - Your software subscription period has lapsed. Your current version of Xilinx tools will continue to function, but you no longer qualify for Xilinx software updates or new releases.
+
+
+----------------------------------------------------------------------
+This is a Full version of ISim.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+Zero Flag is being tested
+Output = 00000000	Zero = 1
+Testing the AND operation
+Output = 00010040	Zero = 0
+Check if equal to 00010040
+Testing the OR operation
+Output = 000fbce0	Zero = 0
+Check if equal to 000fbce0
+Testing the ADD operation
+Output = 0010bd20	Zero = 0
+Check if equal to 0010bd20
+Testing the Subtract operation
+Output = fffa6ba0	Zero = 0
+Check if equal to fffa6ba0
+Testing the Set on Less then operation
+Output = 00000001	Zero = 0
+Testing the NOR operation
+Output = fff0431f	Zero = 0
+Check if equal to fff0431f
+Testing the default operation
+Output = xxxxxxxx	Zero = x
+Stopped at time : 160 ns :  in File "C:/Users/012877915/Desktop/Lab2.3/Lab2.3/ALU_TestPlus.v" Line 93 

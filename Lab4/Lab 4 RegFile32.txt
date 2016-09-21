@@ -1,0 +1,204 @@
+//*******************
+//*BEN CARR         *
+//*Lab 4: RegFile32 *
+//*CECS 341	    *
+//*******************/
+
+
+
+
+`timescale 1ns / 1ps
+
+module RegFile32(Read1, Read2, WriteReg, WriteData, clock, RegWrite, Data1, Data2);
+	input 	[4:0] 	Read1, Read2, WriteReg; //the register numbers to read or write
+	input 	[31:0] 	WriteData; //Data to write
+	input					RegWrite,	//the write control signal
+							clock;	//the clock to trigger a write
+	output	[31:0]	Data1, Data2;	//the register values read
+	reg		[31:0]	RF	[31:0];	//32 registers each 32 bits wide
+	
+	assign Data1	=	RF[Read1];
+	assign Data2	=	RF[Read2];
+
+	always @(posedge clock)
+	begin
+		//if RegWrite control signal is asserted
+		if (RegWrite == 1 && WriteReg != 5'h000) RF[WriteReg]	<= WriteData;
+		
+		RF[0] <= 32'h00000000;		//ensure $0 == 0
+	end
+	
+endmodule
+
+
+//************************TEST********************//
+
+
+`timescale 1ns / 1ps
+
+module RegFile32_test;
+
+	// Inputs
+	reg [4:0] Read1;
+	reg [4:0] Read2;
+	reg [4:0] WriteReg;
+	reg [31:0] WriteData;
+	reg clock;
+	reg RegWrite;
+
+	// Outputs
+	wire [31:0] Data1;
+	wire [31:0] Data2;
+
+	// Instantiate the Unit Under Test (UUT)
+	RegFile32 uut (
+		.Read1(Read1), 
+		.Read2(Read2), 
+		.WriteReg(WriteReg), 
+		.WriteData(WriteData), 
+		.clock(clock), 
+		.RegWrite(RegWrite), 
+		.Data1(Data1), 
+		.Data2(Data2)
+	);
+	integer i;	//loop index variable
+	
+	always	#5	clock = ~clock;	//clock pulse generation
+
+	initial begin
+		// Initialize Inputs
+		Read1 = 0;
+		Read2 = 0;
+		WriteReg = 0;
+		WriteData = 0;
+		clock = 0;
+		RegWrite = 1;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		$display("Writing to Registers");
+		$display("--------------------");
+		
+		//register initialization loop
+		for(i = 0; i < 32; i = i + 1)
+		begin
+			@(negedge clock)
+			begin
+				WriteData	=	$random;
+				WriteReg	=	i;
+			end
+			@(posedge clock)
+				#0 $display("$%d <- 0x%h", WriteReg, WriteData);
+		end
+	RegWrite = 0;
+
+		//read loop
+		$display("Reading to Registers");
+		$display("--------------------");
+	for(i = 0; i < 32; i = i + 2)
+	begin
+		@(negedge clock)
+		begin
+			Read1 = i;
+			#0 $display("$%d <- 0x%h", Read1, Data1);
+			Read2 = i + 1;
+			#0 $display("$%d <- 0x%h", Read2, Data2);
+			i = i + 2;
+		end
+		
+		@(posedge clock)
+		begin
+			Read1 = i;
+			#0 $display("$%d <- 0x%h", Read1, Data1);
+			Read2 = i + 1;
+			#0 $display("$%d <- 0x%h", Read2, Data2);
+		end
+	end
+	$stop;
+	end
+      
+endmodule
+
+
+
+
+
+
+//*****************CoNSOLE OUTPUT TEXT******************//
+This is a Full version of ISim.
+
+# run 1000 ns 
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+
+Writing to Registers
+--------------------
+$ 0 <- 0x12153524
+$ 1 <- 0xc0895e81
+$ 2 <- 0x8484d609
+$ 3 <- 0xb1f05663
+$ 4 <- 0x06b97b0d
+$ 5 <- 0x46df998d
+$ 6 <- 0xb2c28465
+$ 7 <- 0x89375212
+$ 8 <- 0x00f3e301
+$ 9 <- 0x06d7cd0d
+$10 <- 0x3b23f176
+$11 <- 0x1e8dcd3d
+$12 <- 0x76d457ed
+$13 <- 0x462df78c
+$14 <- 0x7cfde9f9
+$15 <- 0xe33724c6
+$16 <- 0xe2f784c5
+$17 <- 0xd513d2aa
+$18 <- 0x72aff7e5
+$19 <- 0xbbd27277
+$20 <- 0x8932d612
+$21 <- 0x47ecdb8f
+$22 <- 0x793069f2
+$23 <- 0xe77696ce
+$24 <- 0xf4007ae8
+$25 <- 0xe2ca4ec5
+$26 <- 0x2e58495c
+$27 <- 0xde8e28bd
+$28 <- 0x96ab582d
+$29 <- 0xb2a72665
+$30 <- 0xb1ef6263
+$31 <- 0x0573870a
+Reading to Registers
+--------------------
+$ 0 <- 0x00000000
+$ 1 <- 0xc0895e81
+$ 2 <- 0x8484d609
+$ 3 <- 0xb1f05663
+$ 4 <- 0x06b97b0d
+$ 5 <- 0x46df998d
+$ 6 <- 0xb2c28465
+$ 7 <- 0x89375212
+$ 8 <- 0x00f3e301
+$ 9 <- 0x06d7cd0d
+$10 <- 0x3b23f176
+$11 <- 0x1e8dcd3d
+$12 <- 0x76d457ed
+$13 <- 0x462df78c
+$14 <- 0x7cfde9f9
+$15 <- 0xe33724c6
+$16 <- 0xe2f784c5
+$17 <- 0xd513d2aa
+$18 <- 0x72aff7e5
+$19 <- 0xbbd27277
+$20 <- 0x8932d612
+$21 <- 0x47ecdb8f
+$22 <- 0x793069f2
+$23 <- 0xe77696ce
+$24 <- 0xf4007ae8
+$25 <- 0xe2ca4ec5
+$26 <- 0x2e58495c
+$27 <- 0xde8e28bd
+$28 <- 0x96ab582d
+$29 <- 0xb2a72665
+$30 <- 0xb1ef6263
+$31 <- 0x0573870a
+Stopped at time : 495 ns(2) :  in File "C:/Users/012877915/Lab4/RegFile32_test.v" Line 104 
+ISim>  
